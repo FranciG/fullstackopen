@@ -30,7 +30,7 @@ const Content = (props) => {
   ))
 };
 
-
+//Getting the data from the array without looping through it.
  const Total = (props) => {
     console.log(props);
     return <div>
