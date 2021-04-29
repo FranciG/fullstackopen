@@ -1,6 +1,40 @@
 import React, { useState } from 'react'
 
+const Statistics = ({ good, neutral, bad }) => {
+  const total = good + bad + neutral;
+  const sumGoodBad = good + bad;
+  const average = Math.round(((good - bad) / sumGoodBad) * 100) / 100;
+  const positive = Math.round((good / sumGoodBad) * 100);
+  /* 1.7: unicafe step2
+Expand your application so that it shows more statistics about the gathered feedback: the total number of collected feedback, the average score (good: 1, neutral: 0, bad: -1) and the percentage of positive feedback.
 
+1.8: unicafe step3
+Refactor your application so that displaying the statistics is extracted into its own Statistics component. The state of the application should remain in the App root component.
+
+Remember that components should not be defined inside other components:
+ */
+
+  if (total === 0) {
+    return (
+      <div>
+        <h2>statistics</h2>
+        <p>No feedback given</p>
+      </div>
+    );
+  }
+
+  return (
+    <>
+        <h1>Statistics</h1>
+      <p>Good feedback count {good}</p>
+      <p>Neutral feedback count count {neutral}</p>
+      <p>Bad feedback count {bad}</p>
+      <p>Total feedback  {total}</p>
+      <p>Average  {average}</p>
+      <p>Positive  {positive} %</p>
+    </>
+  );
+};
 
 
 const App = () => {
@@ -17,7 +51,7 @@ const increaseBad = () => setBad(bad + 1)
 
 
 // event handler is supposed to be either a function or a function reference
-//Hre, the onClick event handler calls a function reference. 
+//Here, the onClick event handler calls a function reference. 
 return (
     <div>
       
@@ -32,10 +66,8 @@ return (
       <button onClick={increaseBad}>
         Bad
       </button>
-      <h1>Statistics</h1>
-      <p>Good feedback count {good}</p>
-      <p>Neutral feedback count count {neutral}</p>
-      <p>Bad feedback count {bad}</p>
+      <Statistics good={good} neutral={neutral} bad={bad} />
+
     </div>
   )
 }
