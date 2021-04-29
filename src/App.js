@@ -1,11 +1,6 @@
 import React, { useState } from 'react'
-  /* 1.7: unicafe step2
-Expand your application so that it shows more statistics about the gathered feedback: the total number of collected feedback, the average score (good: 1, neutral: 0, bad: -1) and the percentage of positive feedback.
-
-1.8: unicafe step3
-Refactor your application so that displaying the statistics is extracted into its own Statistics component. The state of the application should remain in the App root component.
-
-Remember that components should not be defined inside other components:
+  /* 1.9: unicafe step4
+Change your application to display statistics only once feedback has been gathered.
  */
  const Statistics = ({ good, neutral, bad }) => {
   const total = good + bad + neutral;
