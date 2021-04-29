@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
-  /* 1.9: unicafe step4
-Change your application to display statistics only once feedback has been gathered.
+  /* 1.10: unicafe step5
+Let's continue refactoring the application. Extract the following two components:
+
+Button for defining the buttons used for submitting feedback
+Statistic for displaying a single statistic, e.g. the average score.
  */
  const Statistics = ({ good, neutral, bad }) => {
+  
   const total = good + bad + neutral;
   const sumGoodBad = good + bad;
   const average = Math.round(((good - bad) / sumGoodBad) * 100) / 100;
@@ -33,36 +37,33 @@ Change your application to display statistics only once feedback has been gather
 
 
 
-const App = () => {
-  // save clicks of each button to its own state
-  const [good, setGood] = useState(0)
-  const [neutral, setNeutral] = useState(0)
-  const [bad, setBad] = useState(0)
-
-
-const increaseGood = () => setGood(good + 1)
-const increaseNeutral = () => setNeutral(neutral + 1)
-const increaseBad = () => setBad(bad + 1)
-
-
-
-
-// event handler is supposed to be either a function or a function reference
-//Here, the onClick event handler calls a function reference. 
-return (
+  const Button = (props) => {
+    console.log(props)
+    return (
     <div>
       
-      <h1>Give feedback</h1>
-      <button onClick={increaseGood}>
-        Good
-      </button>
+     
+      <button onClick={props.onClick}>{props.text}</button>
 
-      <button onClick={increaseNeutral}>
-        Neutral
-      </button>
-      <button onClick={increaseBad}>
-        Bad
-      </button>
+    </div>
+  );
+};
+
+
+
+const App = () => {
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+ const [bad, setBad] = useState(0)
+ 
+
+return (
+    <div>
+       <h1>Give feedback</h1>
+       <Button onClick={() => setGood(good + 1)} text="Good" />
+       <Button onClick={() => setNeutral(neutral + 1)} text="Neutral" />
+       <Button onClick={() => setBad(bad + 1)} text="Bad" />
+     
       <Statistics good={good} neutral={neutral} bad={bad} />
 
     </div>
