@@ -1,10 +1,4 @@
 import React, { useState } from 'react'
-
-const Statistics = ({ good, neutral, bad }) => {
-  const total = good + bad + neutral;
-  const sumGoodBad = good + bad;
-  const average = Math.round(((good - bad) / sumGoodBad) * 100) / 100;
-  const positive = Math.round((good / sumGoodBad) * 100);
   /* 1.7: unicafe step2
 Expand your application so that it shows more statistics about the gathered feedback: the total number of collected feedback, the average score (good: 1, neutral: 0, bad: -1) and the percentage of positive feedback.
 
@@ -13,15 +7,21 @@ Refactor your application so that displaying the statistics is extracted into it
 
 Remember that components should not be defined inside other components:
  */
+const Statistics = ({ good, neutral, bad }) => {
+  const total = good + bad + neutral;
+  const sumGoodBad = good + bad;
+  const average = Math.round(((good - bad) / sumGoodBad) * 100) / 100;
+  const positive = Math.round((good / sumGoodBad) * 100);
 
-  if (total === 0) {
+
+/*   if (total === 0) {
     return (
       <div>
         <h2>statistics</h2>
         <p>No feedback given</p>
       </div>
     );
-  }
+  } */
 
   return (
     <>
