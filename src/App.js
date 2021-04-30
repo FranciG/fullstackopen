@@ -36,8 +36,8 @@ Statistic for displaying a single statistic, e.g. the average score.
 };
 
 
-
-  const Button = (props) => {
+/* Button component for the buttons of our application. We have to pass the event handler as well as the title of the button through the component's props
+ */  const Button = (props) => {
     console.log(props)
     return (
     <div>
@@ -56,13 +56,17 @@ const App = () => {
   const [neutral, setNeutral] = useState(0)
  const [bad, setBad] = useState(0)
  
+ const increaseGood = () => setGood(good + 1)
+ const increaseNeutral = () => setNeutral(neutral + 1)
+ const increaseBad = () => setBad(bad + 1)
+ 
 
 return (
     <div>
        <h1>Give feedback</h1>
-       <Button onClick={() => setGood(good + 1)} text="Good" />
-       <Button onClick={() => setNeutral(neutral + 1)} text="Neutral" />
-       <Button onClick={() => setBad(bad + 1)} text="Bad" />
+       <Button onClick={increaseGood} text="Good" />
+       <Button onClick={increaseNeutral} text="Neutral" />
+       <Button onClick={increaseBad} text="Bad" />
      
       <Statistics good={good} neutral={neutral} bad={bad} />
 
