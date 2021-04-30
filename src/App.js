@@ -25,12 +25,16 @@ Statistic for displaying a single statistic, e.g. the average score.
   return (
     <>
         <h1>Statistics</h1>
+        <table>
+        <tbody>
       <p>Good feedback count {good}</p>
       <p>Neutral feedback count count {neutral}</p>
       <p>Bad feedback count {bad}</p>
       <p>Total feedback  {total}</p>
       <p>Average  {average}</p>
       <p>Positive  {positive} %</p>
+      </tbody>
+      </table>
     </>
   );
 };
