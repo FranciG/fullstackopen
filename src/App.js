@@ -13,13 +13,18 @@ const App = () => {
     'Premature optimization is the root of all evil.',
     'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
   ];
+ //Get the leght of the array to generate numbers as long as the array is.
   const dataLenght = anecdotes.length;
   const randomNo = () => Math.floor(Math.random() * dataLenght);
   const [selected, setSelected] = useState(randomNo)
+  const [votes, setVotes] = useState(Array(dataLenght).fill(0));
   
+  const vote = selected => {
+    const copy = [...votes];
+    copy[selected] += 1;
+    setVotes(copy);
 
-
-
+  }
   
 
 
@@ -27,9 +32,9 @@ const App = () => {
     <div>
        <h1>Anecdote of the day</h1>
       <p>{anecdotes[selected]}</p>
-   
+      <p>has {votes[selected]} votes</p>
       <button onClick={() => setSelected(randomNo)}> next anecdote </button>
-      
+      <button onClick={() => vote(selected)}>vote</button>
     </div>
   )
 }
