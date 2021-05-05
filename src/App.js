@@ -16,7 +16,11 @@ const App = () => {
  //Get the leght of the array to generate numbers as long as the array is.
   const dataLenght = anecdotes.length;
   const randomNo = () => Math.floor(Math.random() * dataLenght);
+//First parameter:initial value of state. Second parameter: function that will be used to modify the state.
+//The initial value depends of the value that randomNo has. Thus, the position of the array anecdotes displayed changes randomly. 
   const [selected, setSelected] = useState(randomNo)
+
+  //In this case, the initial state value is an array full of zeroes.
   const [votes, setVotes] = useState(Array(dataLenght).fill(0));
   
   const vote = selected => {
@@ -32,6 +36,7 @@ const App = () => {
     <div>
        <h1>Anecdote of the day</h1>
       <p>{anecdotes[selected]}</p>
+
       <p>has {votes[selected]} votes</p>
       <button onClick={() => setSelected(randomNo)}> next anecdote </button>
       <button onClick={() => vote(selected)}>vote</button>
