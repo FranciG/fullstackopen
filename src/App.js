@@ -1,6 +1,20 @@
 import React from 'react'
 
 
+
+
+  const Total = ({ course }) => {
+    //console.log(props)
+  
+    return (
+      <div>
+      <ul>
+        {course.parts.reduce( (sum,exercise) => sum + exercise.exercises, 0)}
+        </ul>
+      </div>
+    )
+  }
+
 const Header = (props) => {
   //console.log(props)
   //I pass the whole object (course) as props and use only name
@@ -12,12 +26,14 @@ const Header = (props) => {
 }
 
 const Courses = ({ course }) => {
+  //Destructure course
+  const { parts } = course;
   //console.log(props)
-  //I pass the whole object (course) as props
+ 
   return (
     <div>
     <ul>
-      {course.parts.map(part => 
+      {parts.map(part => 
           <li key={part.id}>
             {part.name} {part.exercises}
           </li>
@@ -55,11 +71,8 @@ const Courses = ({ course }) => {
     }
 
 
-    const totalAmount = course.parts.reduce(function (sum,exercise) {
-      return sum + exercise.exercises
-    }, 0)
-    console.log(totalAmount)
-
+    
+   // totalAmount = course.parts.reduce( (sum,exercise) => sum + exercise.exercises, 0)
 
 
 
@@ -72,6 +85,8 @@ const Courses = ({ course }) => {
       <Header  course={course} />
        
       <Courses  course={course} />
+
+      <Total  course={course} />
     
       
   
