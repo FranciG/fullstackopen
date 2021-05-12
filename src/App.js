@@ -11,6 +11,21 @@ const Header = (props) => {
   )
 }
 
+const Courses = ({ course }) => {
+  //console.log(props)
+  //I pass the whole object (course) as props
+  return (
+    <div>
+    <ul>
+      {course.parts.map(part => 
+          <li key={part.id}>
+            {part.name} {part.exercises}
+          </li>
+        )}
+      </ul>
+    </div>
+  )
+}
 
   const App = () => {
     
@@ -36,35 +51,34 @@ const Header = (props) => {
         }
       ]
 
+      
     }
-    
-    //const Result = course.parts.map(parts => <li key={parts.id}>{parts.name}</li>)
-    //console.log(Result)
+
+
+    const totalAmount = course.parts.reduce(function (sum,exercise) {
+      return sum + exercise.exercises
+    }, 0)
+    console.log(totalAmount)
+
 
 
 
 
   
     
-  return (
+   return (
     <div>
         
-        <Header  course={course} />
+      <Header  course={course} />
        
-      <ul>
-      {course.parts.map(part => 
-          <li key={part.id}>
-            {part.name} {part.exercises}
-          </li>
-        )}
-      </ul>
+      <Courses  course={course} />
     
       
   
       
   
     </div>
-  )
+  ) 
 }
 
 export default App
