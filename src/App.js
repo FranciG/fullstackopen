@@ -1,47 +1,10 @@
 import React from 'react'
+import Total from './components/Total'
+import Header from './components/Header'
+import Courses from './components/Courses'
 
+//Each component has it's own file, where is exported, and then, imported here where they are used.
 
-
-
-  const Total = ({ course }) => {
-    //console.log(props)
-  
-    return (
-      <div>
-      <ul>
-        {course.parts.reduce( (sum,exercise) => sum + exercise.exercises, 0)}
-        </ul>
-      </div>
-    )
-  }
-
-const Header = (props) => {
-  //console.log(props)
-  //I pass the whole object (course) as props and use only name
-  return (
-    <div>
-    {   <h1>{props.course.name}</h1> }
-    </div>
-  )
-}
-
-const Courses = ({ course }) => {
-  //Destructure course
-  const { parts } = course;
-  //console.log(props)
- 
-  return (
-    <div>
-    <ul>
-      {parts.map(part => 
-          <li key={part.id}>
-            {part.name} {part.exercises}
-          </li>
-        )}
-      </ul>
-    </div>
-  )
-}
 
   const App = () => {
     
