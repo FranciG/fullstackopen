@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 
 const App = () => {
+
+  //Reminder: current state, function that updates it, initial state.
   const [ persons, setPersons ] = useState([
     //The array persons is empty at start
   ]) 
@@ -13,16 +15,25 @@ const App = () => {
     /* complete the addPerson function for creating new persons */
     const personObject = {
       name: newName,
-      //date: new Date().toISOString(),
-      //important: Math.random() < 0.5,
+  
       id: persons.length + 1,
     }
-  //personObject data is contatenated to the persons array
-  //State is updated
+
+//Condition
+ if (persons.some((person) => person.name === personObject.name) )
+ {
+    alert("Name already exist");
+   
+ }
+    else
+    {
+    
+    //*/
+
     setPersons(persons.concat(personObject))
     setNewName('')
-  
-  
+  console.log(persons) 
+}
   
   }
 
