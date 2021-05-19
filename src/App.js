@@ -7,7 +7,7 @@ const App = () => {
     //The array persons is empty at start
   ]) 
   const [ newName, setNewName ] = useState('')
-
+  const [ newNumber, setNewNumber ] = useState('')
   //adding new persons
 
   const addPerson = (event) => {
@@ -15,7 +15,7 @@ const App = () => {
     /* complete the addPerson function for creating new persons */
     const personObject = {
       name: newName,
-  
+      number: newNumber,
       id: persons.length + 1,
     }
 
@@ -28,10 +28,11 @@ const App = () => {
     else
     {
     
-    //*/
+    //After concat, the fiel is set to blank again ('').
 
     setPersons(persons.concat(personObject))
     setNewName('')
+    setNewNumber('')
   console.log(persons) 
 }
   
@@ -41,7 +42,10 @@ const App = () => {
     console.log(event.target.value)
     setNewName(event.target.value)
   }
-
+  const handleNumberChange = (event) => {
+    console.log(event.target.value)
+    setNewNumber(event.target.value)
+  }
 
   return (
     <div>
@@ -55,17 +59,26 @@ const App = () => {
           onChange={handlePersonChange}
           />
         </div>
+        <div>number: 
+        <input 
+        value={newNumber}
+        onChange={handleNumberChange}
+        />
+        
+        </div>
         <div>
           <button type="submit">add</button>
         </div>
       </form>
+
+      
       <h2>Numbers</h2>
 
       {console.log(persons)}
       <ul>
       {persons.map(person => 
           <li key={person.id}>
-            {person.name} 
+            {person.name} {person.number} 
           </li>
         )}
       </ul>
