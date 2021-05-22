@@ -1,13 +1,22 @@
 import React, { useState } from 'react'
+import Person from './components/Person'
+import Form from './components/Form';
+import Filter from './components/Filter';
+import FilterResults from './components/FilterResults'
 
 const App = () => {
 
   //Reminder: current state, function that updates it, initial state.
   const [ persons, setPersons ] = useState([
-    //The array persons is empty at start
+    { name: 'Arto Hellas', number: '040-123456' },
+    { name: 'Ada Lovelace', number: '39-44-5323523' },
+    { name: 'Dan Abramov', number: '12-43-234345' },
+    { name: 'Mary Poppendieck', number: '39-23-6423122' }
   ]) 
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
+  //Filter
+  const [ filter, setFilter ] = useState('')
   //adding new persons
 
   const addPerson = (event) => {
@@ -47,29 +56,28 @@ const App = () => {
     setNewNumber(event.target.value)
   }
 
+  const handleFilterChange = (event) => {
+    setFilter(event.target.value)
+  }
+  const personsToShow = filter === ''
+    ? persons
+    : persons.filter(person =>
+        person.name.toLowerCase().includes(filter.toLowerCase()))
+  const row_names = () => personsToShow.map(person => 
+    <p key={person.name}>{person.name} {person.number}</p>
+  )
+
+
   return (
     <div>
-      <h2>Phonebook</h2>
-     
-      <form onSubmit={addPerson}>
-        <div>
-          name: 
-          <input 
-          value={newName}
-          onChange={handlePersonChange}
-          />
-        </div>
-        <div>number: 
-        <input 
-        value={newNumber}
-        onChange={handleNumberChange}
-        />
-        
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+ <Filter value={filter} onChange={handleFilterChange} />
+
+      <Form
+      onSubmit={addPerson}
+      name={{value: newName, onChange: handlePersonChange}}
+      number={{value: newNumber, onChange: handleNumberChange}}
+
+      />
 
       
       <h2>Numbers</h2>
@@ -77,11 +85,13 @@ const App = () => {
       {console.log(persons)}
       <ul>
       {persons.map(person => 
-          <li key={person.id}>
-            {person.name} {person.number} 
-          </li>
+      //Pass all the props from person to Person.js
+          <Person key={person.id} person={person}  />
+         
         )}
       </ul>
+      <h2>Filter results</h2>
+      <FilterResults persons={row_names()} />
     </div>
   )
 }
