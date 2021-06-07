@@ -25,7 +25,13 @@ const hook = () => {
   console.log('render', countries.length, 'countries')
   console.log(countries)
 
-
+  const handleClick = () => {
+    console.log("click")
+    return filteredCountries.map((country) =>
+    <p key={country.alpha2Code}>Capital: {country.capital}. Population: {country.population} <img src={country.flag}/></p>
+  
+    )
+  }
 
 
 /* //To display the countries array data without typing
@@ -52,19 +58,25 @@ searchFilter.length === 1
 //showCountries returns either a message or else the contents of filteredcountries array
 const showCountries = () => {
 
-if (filteredCountries.length === 0) {
+/* if (filteredCountries.length === 0) {
     return 'No coincidences found'  
-}
+} */
 if (filteredCountries.length > 10) {
-return 'Too many matches'
+return 'Too many matches, keep on typing'
 }
 
 
-  if (filteredCountries.length > 10) {
+  if (filteredCountries.length > 0 && filteredCountries.length<10 && filteredCountries.length>1 ) {
     return filteredCountries.map((country) =>
-<p key={country.alpha2Code}>{country.name}</p>
+<p key={country.alpha2Code}>{country.name}
+{ <button onClick={ handleClick }>
+         show
+      </button> }  
+</p>
 )
-    }
+
+
+}
     if (filteredCountries.length === 1) {
       return filteredCountries.map((country) =>
   <p key={country.alpha2Code}>Capital: {country.capital}. Population: {country.population} <img src={country.flag}/></p>
