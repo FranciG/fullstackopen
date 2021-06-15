@@ -8,6 +8,8 @@ const [searchFilter, setSearchFilter] = useState('')
 
 //Update state with button
 const [selectedCountry, setSelectedCountry] = useState('')
+
+const [weather, setWeather] = useState('')
   
 const hook = () => {
     console.log('effect')
@@ -22,11 +24,30 @@ const hook = () => {
 
   useEffect(hook,[])
 /*   by default the effect is always run after the component has been rendered. In our case, however, we only want to execute the effect along with the first render.
-
   The second parameter of useEffect is used to specify how often the effect is run. If the second parameter is an empty array [], then the effect is only run along with the first render of the component. */
 
   console.log('render', countries.length, 'countries')
   console.log(countries)
+
+/* weather */
+
+useEffect(() => {
+  if( selectedCountry.capital !== '' )
+  {
+    axios
+    .get(
+      `http://api.weatherstack.com/current?access_key=b51dfd70b0b2ccf136a0d7352876661c&query=${selectedCountry.capital}`
+    )
+    .then(res =>{
+      console.log(res.data)
+      console.log("capital" +selectedCountry.capital)
+      setWeather(res.data.current)
+      
+    } )
+  }    
+}, [selectedCountry.capital])
+
+
 
 
 
@@ -46,8 +67,15 @@ const hook = () => {
         
 <h3>Languages</h3>
 <p>      {selectedCountry.languages.map(language => <li key={language.name}>{language.name}</li>)}
-
-
+{/* undefined checking,prevents crash before weather data is fetched*/}
+   <div>
+          <h4>Weather</h4>
+          <h5>temperature: {weather && weather.temperature} Celisues</h5>
+          <img src={weather && weather.weather_icons[0]} alt='' />
+          <h5>
+            wind: {weather && weather.wind_degree} mph direction {weather.wind_dir}
+          </h5>
+        </div>   
 
 </p>
 
@@ -99,6 +127,9 @@ if (filteredCountries.length > 0
             </p>
           ))}
           <div>{renderCountryDetails()}</div>
+          <div>
+            <p></p>
+        </div>
         </div>
       );
     }
