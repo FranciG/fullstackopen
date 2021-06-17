@@ -3,6 +3,7 @@ import Person from './components/Person'
 import Form from './components/Form'
 import Filter from './components/Filter'
 import FilterResults from './components/FilterResults'
+import axios from 'axios'
 
 const App = () => {
 
@@ -25,10 +26,26 @@ const App = () => {
     const personObject = {
       name: newName,
       number: newNumber,
-      id: persons.length + 1,
+      //The server will create the id 
+      //id: persons.length + 1,
     }
 
-//Condition
+    //Adding the data to the server
+    axios
+    .post('http://localhost:3001/persons', personObject)
+    .then(response => {
+      console.log(response)
+         //After concat, the fiel is set to blank again ('').
+
+    setPersons(persons.concat(personObject))
+    setNewName('')
+    setNewNumber('')
+    })
+
+
+
+
+/* //Condition
  if (persons.some((person) => person.name === personObject.name) )
  {
     alert("Name already exist");
@@ -43,7 +60,7 @@ const App = () => {
     setNewName('')
     setNewNumber('')
   console.log(persons) 
-}
+} */
   
   }
 
