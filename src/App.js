@@ -1,25 +1,46 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Person from './components/Person'
 import Form from './components/Form'
 import Filter from './components/Filter'
+
 import FilterResults from './components/FilterResults'
-import axios from 'axios'
+import contactService from './services/persons'
+
 
 const App = () => {
 
+
+
+
   //Reminder: current state, function that updates it, initial state.
-  const [ persons, setPersons ] = useState([
-    { name: 'Arto Hellas', number: '040-123456' },
-    { name: 'Ada Lovelace', number: '39-44-5323523' },
-    { name: 'Dan Abramov', number: '12-43-234345' },
-    { name: 'Mary Poppendieck', number: '39-23-6423122' }
-  ]) 
+
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
+  const [contacts, setContacts] = useState([])
   //Filter
   const [ filter, setFilter ] = useState('')
-  //adding new persons
+  
+  
+  //contactService is importer from /services/persons.
+  //.getAll is like typing: axios.get('http://localhost:3001/persons')
 
+  useEffect(() => {
+    
+    contactService
+    .getAll()
+    .then(response => {
+      setContacts(response.data)
+    console.log(contacts)
+      
+    
+  })
+  
+  }, [])
+
+  console.log('render', contacts.length, 'contacts')
+
+
+  //adding new persons
   const addPerson = (event) => {
     event.preventDefault()
     /* complete the addPerson function for creating new persons */
@@ -31,38 +52,32 @@ const App = () => {
     }
 
     //Adding the data to the server
+    /* 
+    using separate server comunication module from persons.js
+     "create" instead of previous code:
     axios
-    .post('http://localhost:3001/persons', personObject)
+    .post('http://localhost:3001/persons', personObject) 
+    
+    replaced by:
+    
+    contactService
+    .create(personObject)
+    */
+
+    contactService
+    .create(personObject)
     .then(response => {
       console.log(response)
          //After concat, the fiel is set to blank again ('').
-
-    setPersons(persons.concat(personObject))
+//Updating state after creating, to display created contact.
+    setContacts(contacts.concat(personObject))
     setNewName('')
     setNewNumber('')
     })
 
-
-
-
-/* //Condition
- if (persons.some((person) => person.name === personObject.name) )
- {
-    alert("Name already exist");
-   
- }
-    else
-    {
-    
-    //After concat, the fiel is set to blank again ('').
-
-    setPersons(persons.concat(personObject))
-    setNewName('')
-    setNewNumber('')
-  console.log(persons) 
-} */
   
   }
+ 
 
   const handlePersonChange = (event) => {
     console.log(event.target.value)
@@ -76,9 +91,11 @@ const App = () => {
   const handleFilterChange = (event) => {
     setFilter(event.target.value)
   }
+ 
+ 
   const personsToShow = filter === ''
-    ? persons
-    : persons.filter(person =>
+    ? contacts
+    : contacts.filter(person =>
         person.name.toLowerCase().includes(filter.toLowerCase()))
   const row_names = () => personsToShow.map(person => 
     <p key={person.name}>{person.name} {person.number}</p>
@@ -95,13 +112,12 @@ const App = () => {
       number={{value: newNumber, onChange: handleNumberChange}}
 
       />
-
-      
-      <h2>Numbers</h2>
-
-      {console.log(persons)}
+ <h2>Numbers from database</h2>
+     
+   {/*   The contents of the database are stored on the variable contacts.
+     I map through the array. Person.js component used.  */}
       <ul>
-      {persons.map(person => 
+      {contacts.map(person => 
       //Pass all the props from person to Person.js
           <Person key={person.id} person={person}  />
          
