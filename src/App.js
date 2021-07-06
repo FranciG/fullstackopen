@@ -101,6 +101,9 @@ const App = () => {
     <p key={person.name}>{person.name} {person.number}</p>
   )
 
+  const deleteContact = () => {
+    console.log('delete  contact?' )
+  }
 
   return (
     <div>
@@ -119,7 +122,12 @@ const App = () => {
       <ul>
       {contacts.map(person => 
       //Pass all the props from person to Person.js
-          <Person key={person.id} person={person}  />
+          <Person 
+          key={person.id} 
+          person={person} 
+         deleteContact={deleteContact}
+          
+          />
          
         )}
       </ul>
