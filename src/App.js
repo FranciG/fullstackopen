@@ -90,6 +90,14 @@ const App = () => {
  const deleteContctOf = (id) => {
   console.log('delete contact ' + id + ' ????')
   
+  contactService
+ 
+  .remove(id)
+  .then(response => {
+    console.log(response)
+
+  })
+
 }
 
 

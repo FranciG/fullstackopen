@@ -31,11 +31,6 @@
       "id": 6
     },
     {
-      "name": "pablo",
-      "number": "123",
-      "id": 7
-    },
-    {
       "name": "paellas",
       "number": "1234",
       "id": 8
@@ -59,46 +54,6 @@
       "name": "ssssfg",
       "number": "87654",
       "id": 12
-    },
-    {
-      "name": "sss",
-      "number": "sss",
-      "id": 13
-    },
-    {
-      "name": "jhgfd",
-      "number": "9876",
-      "id": 14
-    },
-    {
-      "name": "hola",
-      "number": "2344",
-      "id": 15
-    },
-    {
-      "name": "ssssgg",
-      "number": "64567",
-      "id": 16
-    },
-    {
-      "name": "ss",
-      "number": "ssssd",
-      "id": 17
-    },
-    {
-      "name": "ddd",
-      "number": "6tyhhth",
-      "id": 18
-    },
-    {
-      "name": "almejas",
-      "number": "1234",
-      "id": 19
-    },
-    {
-      "name": "pailo",
-      "number": "244",
-      "id": 20
     }
   ]
 }

@@ -8,7 +8,7 @@ const baseUrl = 'http://localhost:3001/persons'
 const create = personObject => {
   return axios.post(baseUrl, personObject)
 }
-const deleteContact = (id) => {
+const remove = (id) => {
   const req = axios.delete(`${baseUrl}/${id}`)
   return req.then((res) => res.data)
 }
@@ -19,6 +19,6 @@ const deleteContact = (id) => {
 export default { 
   getAll: getAll,  
   create: create, 
- deleteContact,
+ remove,
   /* update: update  */
 }
