@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react'
 import Person from './components/Person'
 import Form from './components/Form'
 import Filter from './components/Filter'
-
+import axios from 'axios'
 import FilterResults from './components/FilterResults'
 import contactService from './services/persons'
 
+//npm run server
 
 const App = () => {
 
@@ -24,6 +25,8 @@ const App = () => {
   //contactService is importer from /services/persons.
   //.getAll is like typing: axios.get('http://localhost:3001/persons')
 
+  //Effect hooks used to fetch data from the server. The data fetched is saved
+  //into the contacts state variable
   useEffect(() => {
     
     contactService
@@ -36,6 +39,11 @@ const App = () => {
   })
   
   }, [])
+/* 
+  second parameter of useEffect is used to specify how often the effect
+   is run. If the second parameter is an empty array [], 
+   then the effect is only run along with the first render of 
+   the component. */
 
   console.log('render', contacts.length, 'contacts')
 
@@ -65,6 +73,7 @@ const App = () => {
     */
 
     contactService
+    //Passing personObject to create
     .create(personObject)
     .then(response => {
       console.log(response)
@@ -77,7 +86,12 @@ const App = () => {
 
   
   }
- 
+ //Delete contacts
+ const toggleImportanceOf = (id) => {
+  console.log('importance of ' + id + ' needs to be toggled')
+  
+}
+
 
   const handlePersonChange = (event) => {
     console.log(event.target.value)
@@ -98,12 +112,10 @@ const App = () => {
     : contacts.filter(person =>
         person.name.toLowerCase().includes(filter.toLowerCase()))
   const row_names = () => personsToShow.map(person => 
-    <p key={person.name}>{person.name} {person.number}</p>
+    <p key={person.name}>{person.name} {person.number} </p>
   )
 
-  const deleteContact = () => {
-    console.log('delete  contact?' )
-  }
+ 
 
   return (
     <div>
@@ -113,6 +125,7 @@ const App = () => {
       onSubmit={addPerson}
       name={{value: newName, onChange: handlePersonChange}}
       number={{value: newNumber, onChange: handleNumberChange}}
+     
 
       />
  <h2>Numbers from database</h2>
@@ -125,7 +138,8 @@ const App = () => {
           <Person 
           key={person.id} 
           person={person} 
-         deleteContact={deleteContact}
+          toggleImportance={() => toggleImportanceOf(person.id)}
+         
           
           />
          
@@ -133,6 +147,7 @@ const App = () => {
       </ul>
       <h2>Filter results</h2>
       <FilterResults persons={row_names()} />
+
     </div>
   )
 }
