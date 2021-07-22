@@ -88,15 +88,20 @@ const App = () => {
   }
  //Delete contacts
  const deleteContctOf = (id) => {
+
   console.log('delete contact ' + id + ' ????')
+
+  if (window.confirm("Do you really want to delete this person")) {
   
   contactService
  
   .remove(id)
-  .then(response => {
-    console.log(response)
+ 
+} else {
+  return
+}
 
-  })
+  
 
 }
 
