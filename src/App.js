@@ -87,8 +87,8 @@ const App = () => {
   
   }
  //Delete contacts
- const toggleImportanceOf = (id) => {
-  console.log('importance of ' + id + ' needs to be toggled')
+ const deleteContctOf = (id) => {
+  console.log('delete contact ' + id + ' ????')
   
 }
 
@@ -135,10 +135,11 @@ const App = () => {
       <ul>
       {contacts.map(person => 
       //Pass all the props from person to Person.js
+      //Here you pass the props
           <Person 
           key={person.id} 
           person={person} 
-          toggleImportance={() => toggleImportanceOf(person.id)}
+          deleteContact={() => deleteContctOf(person.id)}
          
           
           />
